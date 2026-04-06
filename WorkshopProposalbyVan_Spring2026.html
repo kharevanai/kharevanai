@@ -9,7 +9,7 @@
   <title>AI Second Brain Workshop - Vanchhit Khare</title>
   <script>
     // Force cache bust: if page version doesn't match, reload from server
-    var PAGE_VERSION = '20260407b';
+    var PAGE_VERSION = '20260407c';
     if (localStorage.getItem('wsv') !== PAGE_VERSION) {
       localStorage.setItem('wsv', PAGE_VERSION);
       location.reload(true);
@@ -275,12 +275,16 @@
       .p-links { text-align: center; }
       .p-links li { font-size: 0.7rem; justify-content: center; }
 
-      /* Agenda */
-      .agenda-row { flex-direction: column; align-items: stretch; }
-      .agenda-item { min-width: auto; }
-      .why-row { grid-template-columns: 1fr; }
-      .why-item h4 { font-size: 0.82rem; }
-      .why-item p { font-size: 0.75rem; }
+      /* Agenda - compact grid on mobile */
+      .agenda-row { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .agenda-item { padding: 10px 8px; min-width: auto; }
+      .agenda-item .num { font-size: 0.6rem; padding: 2px 6px; }
+      .agenda-item h4 { font-size: 0.72rem; }
+      .agenda-item small { font-size: 0.6rem; }
+      .why-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .why-item { padding: 10px; }
+      .why-item h4 { font-size: 0.72rem; }
+      .why-item p { font-size: 0.65rem; line-height: 1.4; }
 
       /* Requirements */
       .req-row { grid-template-columns: 1fr; }
@@ -480,23 +484,16 @@
     </div>
   </div>
 
-  <!-- Slide 9: Agenda + Why -->
+  <!-- Slide 8: Agenda -->
   <div class="slide slide-gray" data-i="7">
     <div class="slide-inner">
-      <h2 style="text-align:center; margin-bottom:8px;">60-minute agenda</h2>
+      <h2 style="text-align:center; margin-bottom:16px;">60-minute agenda</h2>
       <div class="agenda-row">
         <div class="agenda-item"><span class="num" style="background:var(--green);">P1</span><h4>Notion KB</h4><small>0:02 - 0:10</small></div>
         <div class="agenda-item"><span class="num" style="background:var(--teal);">P2</span><h4>MCP + Notion</h4><small>0:10 - 0:20</small></div>
         <div class="agenda-item"><span class="num" style="background:var(--purple);">P3</span><h4>Skills + Rules</h4><small>0:20 - 0:30</small></div>
         <div class="agenda-item"><span class="num" style="background:var(--pink);">P4</span><h4>Karpathy</h4><small>0:30 - 0:42</small></div>
         <div class="agenda-item"><span class="num" style="background:var(--blue);">P5</span><h4>Live Report</h4><small>0:42 - 0:58</small></div>
-      </div>
-      <h2 style="text-align:center; margin:20px 0 8px; font-size:1.3rem;">Why this works</h2>
-      <div class="why-row">
-        <div class="why-item"><h4>Working system to keep</h4><p>Notion workspace, CLAUDE.md, /research Skill, connected MCP server.</p></div>
-        <div class="why-item"><h4>Solves a real problem</h4><p>Every student has been burned by AI hallucination. This gives them a fix.</p></div>
-        <div class="why-item"><h4>Career direction</h4><p>Karpathy framework shows what skills matter in 2026 and beyond.</p></div>
-        <div class="why-item"><h4>Side-by-side comparison</h4><p>Hallucinated vs grounded output from the same AI is unforgettable.</p></div>
       </div>
     </div>
   </div>
