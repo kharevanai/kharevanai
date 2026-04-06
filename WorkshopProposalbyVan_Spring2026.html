@@ -552,23 +552,30 @@
 
   // Keyboard nav
   document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(1); }
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(-1); }
+    if (e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); go(-1); }
   });
 
-  // Touch swipe - vertical, fast flick only (preserves pull-to-refresh)
-  let ty = 0, tt = 0;
+  // Touch swipe - VERTICAL ONLY (up/down)
+  var touchY = 0;
+  var touchTime = 0;
+  var swiped = false;
+
   document.addEventListener('touchstart', function(e) {
-    ty = e.touches[0].clientY;
-    tt = Date.now();
+    touchY = e.touches[0].clientY;
+    touchTime = Date.now();
+    swiped = false;
   }, { passive: true });
-  document.addEventListener('touchend', function(e) {
-    var dy = e.changedTouches[0].clientY - ty;
-    var dt = Date.now() - tt;
-    // Only trigger on quick flick (under 300ms) with enough distance (50px)
-    if (dt < 300 && Math.abs(dy) > 50) {
-      if (dy < 0) go(1);   // flick up = next
-      if (dy > 0) go(-1);  // flick down = prev
+
+  document.addEventListener('touchmove', function(e) {
+    if (swiped) return;
+    var dy = e.touches[0].clientY - touchY;
+    var dt = Date.now() - touchTime;
+    // Trigger slide change on 40px vertical move within 400ms
+    if (dt < 400 && Math.abs(dy) > 40) {
+      swiped = true;
+      if (dy < 0) go(1);   // swipe up = next slide
+      if (dy > 0) go(-1);  // swipe down = prev slide
     }
   }, { passive: true });
 
