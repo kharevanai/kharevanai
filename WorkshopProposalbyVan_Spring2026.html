@@ -24,20 +24,34 @@
     h1, h2, h3, h4 { font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; }
     code { font-family: 'SF Mono', 'Menlo', monospace; font-size: 0.85em; background: var(--gray-3); padding: 2px 6px; border-radius: 5px; }
 
+    /* ===== FIXED FOOTER SIGNATURE ===== */
+    .bottom-sig {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--gray-2); padding: 8px 24px;
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      font-size: 0.75rem; color: var(--gray-1); font-weight: 500;
+    }
+    .bottom-sig img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+    .bottom-sig strong { color: var(--black); font-weight: 700; }
+    .bottom-sig a { color: var(--blue); font-weight: 600; }
+    .bottom-sig .sep { color: var(--gray-2); }
+
     /* ===== SLIDE CONTAINER ===== */
     .deck {
-      height: 100vh; width: 100vw; overflow: hidden; position: relative;
+      height: calc(100vh - 44px); width: 100vw; overflow: hidden; position: relative;
+      margin-bottom: 44px;
     }
     .slide {
       position: absolute; inset: 0; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; padding: 60px 80px;
+      align-items: center; justify-content: center; padding: 56px 48px 52px;
       opacity: 0; pointer-events: none; overflow-y: auto;
       transition: opacity 0.35s ease;
     }
     .slide.active {
       opacity: 1; pointer-events: auto; z-index: 2;
     }
-    .slide-inner { max-width: 900px; width: 100%; }
+    .slide-inner { max-width: 1100px; width: 100%; }
 
     /* ===== TOP BAR ===== */
     .topbar {
@@ -231,35 +245,8 @@
     </div>
   </div>
 
-  <!-- Slide 2: Presenter -->
-  <div class="slide" data-i="1">
-    <div class="slide-inner">
-      <div class="presenter">
-        <img class="presenter-photo" src="VanchhitKhare.jpeg" alt="Vanchhit Khare">
-        <div class="presenter-info">
-          <div class="presenter-name">Vanchhit Khare</div>
-          <div class="presenter-role">Solutions Developer, M&T Bank &middot; CSUF MS CS '19 &middot; 10+ Years in Software</div>
-          <p class="presenter-bio">AI Architect with 10+ years in software development. Builds multi-agent systems for enterprise environments. Published researcher and active peer reviewer across IEEE, Springer, Elsevier, MDPI, and IGI Global.</p>
-          <div class="p-stats">
-            <div class="p-stat"><strong>10+</strong><span>Years in Software</span></div>
-            <div class="p-stat"><strong>8</strong><span>Research Papers</span></div>
-            <div class="p-stat"><strong>40+</strong><span>Peer Reviews</span></div>
-            <div class="p-stat"><strong>5+</strong><span>Conferences</span></div>
-          </div>
-          <ul class="p-links">
-            <li><a href="mailto:khare.van08@gmail.com">khare.van08@gmail.com</a></li>
-            <li><a href="https://linkedin.com/in/vkhare0522" target="_blank">linkedin.com/in/vkhare0522</a></li>
-            <li><a href="https://vkhare.online" target="_blank">vkhare.online</a></li>
-            <li>ORCID: 0009-0000-8765-9091</li>
-            <li><a href="https://www.salesforce.com/trailblazer/vkhare" target="_blank">Trailhead (Salesforce)</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide 3: Overview -->
-  <div class="slide slide-dark" data-i="2">
+  <!-- Slide 2: Overview -->
+  <div class="slide slide-dark" data-i="1">
     <div class="slide-inner">
       <div class="kid-content">
         <h2>Imagine you have a super smart robot friend...</h2>
@@ -277,7 +264,7 @@
   </div>
 
   <!-- Slide 4: Project 1 -->
-  <div class="slide slide-project" data-i="3">
+  <div class="slide slide-project" data-i="2">
     <div class="slide-inner">
       <div class="p-num" style="background:var(--green);">1</div>
       <h2>Build a Notion knowledge base</h2>
@@ -297,7 +284,7 @@
   </div>
 
   <!-- Slide 5: Project 2 -->
-  <div class="slide slide-project slide-gray" data-i="4">
+  <div class="slide slide-project slide-gray" data-i="3">
     <div class="slide-inner">
       <div class="p-num" style="background:var(--teal);">2</div>
       <h2>Connect AI to your knowledge (MCP + Notion)</h2>
@@ -316,7 +303,7 @@
   </div>
 
   <!-- Slide 6: Project 3 -->
-  <div class="slide slide-project" data-i="5">
+  <div class="slide slide-project" data-i="4">
     <div class="slide-inner">
       <div class="p-num" style="background:var(--purple);">3</div>
       <h2>Custom Skills and CLAUDE.md rules</h2>
@@ -335,7 +322,7 @@
   </div>
 
   <!-- Slide 7: Project 4 -->
-  <div class="slide slide-project slide-gray" data-i="6">
+  <div class="slide slide-project slide-gray" data-i="5">
     <div class="slide-inner">
       <div class="p-num" style="background:var(--pink);">4</div>
       <h2>Karpathy's Agentic Engineering framework</h2>
@@ -355,7 +342,7 @@
   </div>
 
   <!-- Slide 8: Project 5 -->
-  <div class="slide slide-project" data-i="7">
+  <div class="slide slide-project" data-i="6">
     <div class="slide-inner">
       <div class="p-num" style="background:var(--blue);">5</div>
       <h2>Live build: AI writes a grounded report</h2>
@@ -375,7 +362,7 @@
   </div>
 
   <!-- Slide 9: Agenda + Why -->
-  <div class="slide slide-gray" data-i="8">
+  <div class="slide slide-gray" data-i="7">
     <div class="slide-inner">
       <h2 style="text-align:center; margin-bottom:8px;">60-minute agenda</h2>
       <div class="agenda-row">
@@ -396,7 +383,7 @@
   </div>
 
   <!-- Slide 10: Requirements -->
-  <div class="slide" data-i="9">
+  <div class="slide" data-i="8">
     <div class="slide-inner">
       <h2 style="text-align:center; margin-bottom:16px;">What we need</h2>
       <div class="req-row">
@@ -413,12 +400,25 @@
           <ul><li>Nothing! Live demo workshop</li><li>Optional: free Notion account</li><li>Optional: laptop to follow along</li><li>Curiosity encouraged</li></ul>
         </div>
       </div>
-      <p style="text-align:center; margin-top:28px; color:var(--gray-1); font-size:0.88rem;">
-        <strong style="color:var(--black);">Vanchhit Khare</strong> &middot; Workshop Proposal // Spring 2026 &middot; 5 Projects &middot; 1 Hour &middot; Zero Hallucination
-      </p>
     </div>
   </div>
 
+</div>
+
+<!-- Fixed Bottom Signature -->
+<div class="bottom-sig">
+  <img src="VanchhitKhare.jpeg" alt="VK">
+  <strong>Vanchhit Khare</strong>
+  <span class="sep">|</span>
+  Solutions Developer, M&T Bank
+  <span class="sep">|</span>
+  <a href="mailto:khare.van08@gmail.com">khare.van08@gmail.com</a>
+  <span class="sep">|</span>
+  <a href="https://linkedin.com/in/vkhare0522" target="_blank">LinkedIn</a>
+  <span class="sep">|</span>
+  <a href="https://vkhare.online" target="_blank">vkhare.online</a>
+  <span class="sep">|</span>
+  8 Papers &middot; 40+ Reviews &middot; 5+ Conferences
 </div>
 
 <script>
