@@ -61,8 +61,8 @@
       border-bottom: 1px solid var(--gray-2);
     }
     .topbar-center { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; }
-    .topbar-logo { font-weight: 800; font-size: 1.25rem; color: var(--black); letter-spacing: -0.03em; line-height: 1.2; }
-    .topbar-by { font-size: 0.7rem; color: var(--gray-1); font-weight: 500; letter-spacing: 0.02em; }
+    .topbar-logo { font-weight: 800; font-size: 1.6rem; color: var(--black); letter-spacing: -0.03em; line-height: 1.2; }
+    .topbar-by { font-size: 0.72rem; color: var(--gray-1); font-weight: 500; letter-spacing: 0.02em; }
     .topbar-right { display: flex; align-items: center; gap: 12px; }
     .slide-counter {
       position: fixed; bottom: 52px; left: 50%; transform: translateX(-50%); z-index: 101;
@@ -212,12 +212,14 @@
 
 <!-- Top Bar -->
 <div class="topbar">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button class="mode-btn active" onclick="setMode('kid')" id="btn-kid">5-Year-Old</button>
+  </div>
   <div class="topbar-center">
     <div class="topbar-logo">AI Second Brain Workshop</div>
     <div class="topbar-by">Given by Vanchhit Khare</div>
   </div>
   <div class="topbar-right">
-    <button class="mode-btn active" onclick="setMode('kid')" id="btn-kid">5-Year-Old</button>
     <button class="mode-btn mode-btn-lg" onclick="setMode('tech')" id="btn-tech">Tech Level</button>
   </div>
 </div>
