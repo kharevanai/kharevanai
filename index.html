@@ -7,6 +7,26 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>AI Second Brain Workshop - Vanchhit Khare</title>
+  <script>
+    // Force cache bust: if page version doesn't match, reload from server
+    var PAGE_VERSION = '20260407a';
+    if (localStorage.getItem('wsv') !== PAGE_VERSION) {
+      localStorage.setItem('wsv', PAGE_VERSION);
+      location.reload(true);
+    }
+    // Kill any service workers caching old versions
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(r) {
+        r.forEach(function(sw) { sw.unregister(); });
+      });
+    }
+    // Clear caches API if available
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        names.forEach(function(name) { caches.delete(name); });
+      });
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
