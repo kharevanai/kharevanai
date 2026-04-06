@@ -64,7 +64,11 @@
     .topbar-logo { font-weight: 800; font-size: 1.25rem; color: var(--black); letter-spacing: -0.03em; line-height: 1.2; }
     .topbar-by { font-size: 0.7rem; color: var(--gray-1); font-weight: 500; letter-spacing: 0.02em; }
     .topbar-right { display: flex; align-items: center; gap: 12px; }
-    .slide-counter { font-size: 0.85rem; color: var(--black); font-weight: 700; background: var(--gray-3); padding: 4px 12px; border-radius: 980px; }
+    .slide-counter {
+      position: fixed; bottom: 52px; left: 50%; transform: translateX(-50%); z-index: 101;
+      font-size: 0.82rem; color: var(--black); font-weight: 700; background: var(--gray-3);
+      padding: 5px 16px; border-radius: 980px; border: 1px solid var(--gray-2);
+    }
 
     /* ===== MODE TOGGLE ===== */
     .mode-btn {
@@ -213,7 +217,6 @@
     <div class="topbar-by">Given by Vanchhit Khare</div>
   </div>
   <div class="topbar-right">
-    <span class="slide-counter" id="counter">1 / 10</span>
     <button class="mode-btn active" onclick="setMode('kid')" id="btn-kid">5-Year-Old</button>
     <button class="mode-btn mode-btn-lg" onclick="setMode('tech')" id="btn-tech">Tech Level</button>
   </div>
@@ -409,6 +412,9 @@
   </div>
 
 </div>
+
+<!-- Slide Counter -->
+<div class="slide-counter" id="counter">1 / 9</div>
 
 <!-- Fixed Bottom Signature -->
 <div class="bottom-sig">
