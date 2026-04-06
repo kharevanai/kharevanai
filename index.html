@@ -9,7 +9,7 @@
   <title>AI Second Brain Workshop - Vanchhit Khare</title>
   <script>
     // Force cache bust: if page version doesn't match, reload from server
-    var PAGE_VERSION = '20260407a';
+    var PAGE_VERSION = '20260407b';
     if (localStorage.getItem('wsv') !== PAGE_VERSION) {
       localStorage.setItem('wsv', PAGE_VERSION);
       location.reload(true);
@@ -217,21 +217,22 @@
 
     /* Responsive - Tablet */
     @media (max-width: 768px) {
-      .slide { padding: 110px 16px 70px; }
+      .slide { padding: 72px 16px 60px; }
       .slide-inner { max-width: 100%; }
       .progress { right: 6px; gap: 5px; }
       .dot { width: 7px; height: 7px; }
       .nav-arrow { display: none; }
 
-      /* Topbar: row layout, title hidden on small, just buttons + photo */
-      .topbar { flex-wrap: nowrap; justify-content: space-between; padding: 8px 12px; gap: 6px; }
-      .topbar-center { position: relative; left: auto; transform: none; text-align: center; flex: 1; min-width: 0; }
-      .topbar-logo { font-size: 0.82rem !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .topbar-by { font-size: 0.55rem; }
-      .topbar-right { flex-shrink: 0; }
-      .topbar-right img { width: 26px; height: 26px; }
-      .mode-btn { padding: 4px 10px; font-size: 0.65rem; }
-      .mode-btn-lg { padding: 5px 14px; font-size: 0.72rem; }
+      /* Topbar: two rows - title top, buttons bottom */
+      .topbar { flex-wrap: wrap; justify-content: center; padding: 6px 10px 4px; gap: 2px; }
+      .topbar-center { position: relative; left: auto; transform: none; text-align: center; width: 100%; order: -1; }
+      .topbar-logo { font-size: 0.78rem !important; }
+      .topbar-by { display: none; }
+      .topbar > div:first-child { order: 0; }
+      .topbar-right { order: 1; }
+      .topbar-right img { width: 24px; height: 24px; }
+      .mode-btn { padding: 3px 10px; font-size: 0.62rem; }
+      .mode-btn-lg { padding: 4px 14px; font-size: 0.68rem; }
 
       /* Hero */
       .slide-hero h1 { font-size: 1.8rem; }
@@ -287,12 +288,12 @@
       .req-card h4 { font-size: 0.82rem; }
       .req-card li { font-size: 0.75rem; }
 
-      /* Bottom bar - compact for mobile */
-      .bottom-sig { padding: 6px 10px; font-size: 0.6rem; gap: 6px; overflow-x: auto; white-space: nowrap; justify-content: flex-start; }
-      .bottom-sig img { width: 20px; height: 20px; }
+      /* Bottom bar - only name + email on mobile */
+      .bottom-sig { padding: 5px 10px; font-size: 0.62rem; gap: 6px; justify-content: center; flex-wrap: nowrap; white-space: nowrap; }
+      .bottom-sig img { width: 18px; height: 18px; }
       .bottom-sig .sep { display: none; }
-      .bottom-sig strong { font-size: 0.65rem; }
-      .slide-counter { bottom: 38px; font-size: 0.68rem; padding: 3px 10px; }
+      .bottom-sig .hide-mobile { display: none; }
+      .slide-counter { bottom: 34px; font-size: 0.65rem; padding: 3px 8px; }
     }
 
     /* Responsive - Small phones */
@@ -531,15 +532,15 @@
   <img src="VanchhitKhare.jpeg" alt="VK">
   <strong>Vanchhit Khare</strong>
   <span class="sep">|</span>
-  Solutions Developer, M&T Bank
-  <span class="sep">|</span>
+  <span class="hide-mobile">Solutions Developer, M&T Bank</span>
+  <span class="sep hide-mobile">|</span>
   <a href="mailto:khare.van08@gmail.com">khare.van08@gmail.com</a>
   <span class="sep">|</span>
   <a href="https://linkedin.com/in/vkhare0522" target="_blank">LinkedIn</a>
-  <span class="sep">|</span>
-  <a href="https://vkhare.online" target="_blank">vkhare.online</a>
-  <span class="sep">|</span>
-  8 Papers &middot; 40+ Reviews &middot; 5+ Conferences
+  <span class="sep hide-mobile">|</span>
+  <a href="https://vkhare.online" target="_blank" class="hide-mobile">vkhare.online</a>
+  <span class="sep hide-mobile">|</span>
+  <span class="hide-mobile">8 Papers &middot; 40+ Reviews &middot; 5+ Conferences</span>
 </div>
 
 <script>
