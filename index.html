@@ -31,14 +31,11 @@
     .slide {
       position: absolute; inset: 0; display: flex; flex-direction: column;
       align-items: center; justify-content: center; padding: 60px 80px;
-      opacity: 0; transform: translateX(60px); transition: opacity 0.4s, transform 0.4s;
-      pointer-events: none; overflow-y: auto;
+      opacity: 0; pointer-events: none; overflow-y: auto;
+      transition: opacity 0.35s ease;
     }
     .slide.active {
-      opacity: 1; transform: translateX(0); pointer-events: auto;
-    }
-    .slide.prev {
-      opacity: 0; transform: translateX(-60px);
+      opacity: 1; pointer-events: auto; z-index: 2;
     }
     .slide-inner { max-width: 900px; width: 100%; }
 
@@ -441,9 +438,7 @@
   function goTo(n) {
     if (n < 0 || n >= total || n === cur) return;
     slides[cur].classList.remove('active');
-    slides[cur].classList.add(n > cur ? 'prev' : '');
     cur = n;
-    slides[cur].classList.remove('prev');
     slides[cur].classList.add('active');
     document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
     document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
