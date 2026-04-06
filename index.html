@@ -556,22 +556,19 @@
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(-1); }
   });
 
-  // Touch swipe - vertical (natural mobile scroll direction)
-  let ty = 0, tx = 0;
-  document.addEventListener('touchstart', e => {
+  // Touch swipe - vertical only (up/down)
+  let ty = 0;
+  document.addEventListener('touchstart', function(e) {
     ty = e.touches[0].clientY;
-    tx = e.touches[0].clientX;
-  });
-  document.addEventListener('touchend', e => {
-    const dy = e.changedTouches[0].clientY - ty;
-    const dx = e.changedTouches[0].clientX - tx;
-    // Prefer vertical swipe on mobile, horizontal on desktop
-    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
-      go(dy < 0 ? 1 : -1); // swipe up = next, swipe down = prev
-    } else if (Math.abs(dx) > 50) {
-      go(dx < 0 ? 1 : -1); // swipe left = next, swipe right = prev
-    }
-  });
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+  }, { passive: false });
+  document.addEventListener('touchend', function(e) {
+    var dy = e.changedTouches[0].clientY - ty;
+    if (dy < -30) go(1);   // swipe up = next
+    if (dy > 30) go(-1);   // swipe down = prev
+  }, { passive: true });
 
   // Mode toggle
   function setMode(mode) {
