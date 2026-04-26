@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>AI Second Brain Workshop - Vanchhit Khare</title>
   <script>
-    var PAGE_VERSION = '20260426c';
+    var PAGE_VERSION = '20260426d';
     if (localStorage.getItem('wsv') !== PAGE_VERSION) {
       localStorage.setItem('wsv', PAGE_VERSION);
       location.reload(true);
@@ -246,6 +246,19 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 14px;
+    }
+    .slide-num {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      font-family: var(--font-h);
+      display: inline-block;
+      margin-bottom: 16px;
     }
     .slide-project h2 { font-size: clamp(1.5rem, 3.2vw, 2.2rem); margin-bottom: 8px; }
     .time {
@@ -547,6 +560,7 @@
   <!-- Slide 1: Hero -->
   <div class="slide slide-hero active" data-i="0">
     <div class="slide-inner" style="text-align:center;">
+      <span class="slide-num">00</span>
       <div class="kid-content">
         <div class="badge">A Fun Workshop!</div>
         <h1>Teach Your Robot<br>to Stop Making Stuff Up!</h1>
@@ -568,6 +582,7 @@
   <!-- Slide 2: Overview -->
   <div class="slide slide-dark" data-i="1">
     <div class="slide-inner">
+      <span class="slide-num">01</span>
       <div class="kid-content">
         <h2>Imagine you have a super smart robot friend...</h2>
         <p>But sometimes your robot friend makes stuff up! You ask "What did I eat for lunch?" and it says "Pizza!" when you actually had a sandwich. That's because the robot is GUESSING instead of KNOWING.</p>
@@ -688,6 +703,7 @@
   <!-- Slide 8: Agenda -->
   <div class="slide slide-gray" data-i="7">
     <div class="slide-inner">
+      <span class="slide-num">06</span>
       <h2 style="text-align:center; margin-bottom:16px;">60-minute agenda</h2>
       <div class="agenda-row">
         <div class="agenda-item"><span class="num">P1</span><h4>Notion KB</h4><small>0:02 - 0:10</small></div>
@@ -702,6 +718,7 @@
   <!-- Slide 9: Requirements -->
   <div class="slide" data-i="8">
     <div class="slide-inner">
+      <span class="slide-num">07</span>
       <h2 style="text-align:center; margin-bottom:16px;">What we need</h2>
       <div class="req-row">
         <div class="req-card">
