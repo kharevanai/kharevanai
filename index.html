@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>AI Second Brain Workshop - Vanchhit Khare</title>
   <script>
-    var PAGE_VERSION = '20260426i';
+    var PAGE_VERSION = '20260426j';
     if (localStorage.getItem('wsv') !== PAGE_VERSION) {
       localStorage.setItem('wsv', PAGE_VERSION);
       location.reload(true);
@@ -97,88 +97,31 @@
     .bottom-sig a { color: #5eb0ff; font-weight: 600; }
     .bottom-sig .sep { color: rgba(255,255,255,0.2); }
 
-    /* ===== DECK (BOOK) ===== */
-    .deck { height: calc(100vh - 44px); width: 60vw; margin-left: 40vw; overflow: hidden; position: relative; margin-bottom: 44px; z-index: 1; perspective: 2400px; perspective-origin: center center; padding: 64px 28px 56px; }
-    /* The static book frame: spine + left page (always visible) */
-    .book-frame {
-      position: absolute; inset: 64px 28px 56px;
-      display: flex; pointer-events: none; z-index: 0;
-      border-radius: 14px;
-      box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
-    }
-    .book-page-static {
-      flex: 1; height: 100%;
-      background: linear-gradient(135deg, rgba(245,241,232,0.04) 0%, rgba(245,241,232,0.08) 100%);
-      backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px 0 0 14px;
-      border-right: none;
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      padding: 40px;
-    }
-    .book-page-static::after {
-      content: ""; position: absolute; top: 0; right: 0; width: 18px; height: 100%;
-      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.18) 50%, transparent 100%);
-      pointer-events: none;
-    }
-    .book-spine-shadow {
-      width: 0; height: 100%; position: relative;
-    }
-    .book-spine-shadow::before {
-      content: ""; position: absolute; top: 0; left: -10px; width: 20px; height: 100%;
-      background: linear-gradient(to right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%);
-      z-index: 5; pointer-events: none;
-    }
-    .book-spine-shadow::after {
-      content: ""; position: absolute; top: 0; right: -10px; width: 20px; height: 100%;
-      background: linear-gradient(to left, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%);
-      z-index: 5; pointer-events: none;
-    }
-    /* Left page placeholder visual (replaced per slide later) */
-    .left-page-visual {
-      width: 80%; max-width: 320px; aspect-ratio: 1;
-      border-radius: 16px;
-      background: radial-gradient(circle at 30% 30%, rgba(10,132,255,0.18), rgba(10,132,255,0.04) 60%, transparent 80%);
-      border: 1px solid rgba(10,132,255,0.18);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-h); font-size: 0.78rem; letter-spacing: 0.18em;
-      color: rgba(245,245,247,0.5); text-transform: uppercase;
-    }
-
+    /* ===== DECK (simple two-column: robot left 40%, slides right 60%) ===== */
+    .deck { height: calc(100vh - 44px); width: 60vw; margin-left: 40vw; overflow: hidden; position: relative; margin-bottom: 44px; z-index: 1; padding: 56px 32px 44px; }
     .slide-hero, .slide { background: transparent !important; }
-    /* Slide = right page of the book */
     .slide {
-      position: absolute; top: 64px; bottom: 56px; left: calc(50% + 14px); right: 28px;
+      position: absolute; inset: 56px 32px 44px;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center; padding: 36px 32px;
+      align-items: center; justify-content: center; padding: 24px;
       opacity: 0; pointer-events: none; overflow-y: auto;
-      background: linear-gradient(135deg, rgba(245,241,232,0.04) 0%, rgba(245,241,232,0.08) 100%);
-      backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-left: none;
-      border-radius: 0 14px 14px 0;
-      transform-origin: left center;
-      transform: rotateY(-180deg);
-      transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.4s ease 0.1s;
-      backface-visibility: hidden;
-      box-shadow: inset 12px 0 24px -12px rgba(0,0,0,0.35);
+      transition: opacity 0.4s ease, transform 0.45s var(--spring);
+      transform: scale(0.97);
     }
-    .slide.active { opacity: 1; pointer-events: auto; z-index: 3; transform: rotateY(0deg); }
-    .slide.flipping-out { z-index: 2; transform: rotateY(-180deg); opacity: 0; }
+    .slide.active { opacity: 1; pointer-events: auto; z-index: 2; transform: scale(1); }
     .slide-inner {
       max-width: 100%; width: 100%;
       background: transparent;
       border: none;
-      padding: 24px 16px;
+      padding: 16px;
       color: #f5f5f7;
       overflow-x: hidden;
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
-    .slide-inner h1 { font-size: clamp(1.6rem, 4vw, 3rem); }
-    .slide-inner h2 { font-size: clamp(1.3rem, 3vw, 2.2rem); }
-    .slide-inner h3 { font-size: clamp(1.05rem, 2.2vw, 1.4rem); }
+    .slide-inner h1 { font-size: clamp(1.5rem, 3.5vw, 2.6rem); }
+    .slide-inner h2 { font-size: clamp(1.25rem, 2.8vw, 2rem); }
+    .slide-inner h3 { font-size: clamp(1rem, 2vw, 1.3rem); }
     .slide-inner > * { max-width: 100%; }
     .slide-inner, .slide-inner h1, .slide-inner h2, .slide-inner h3, .slide-inner h4, .slide-inner p, .slide-inner li, .slide-inner strong {
       color: #f5f5f7 !important;
@@ -193,42 +136,28 @@
     .slide-inner .chip {
       background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.2) !important; color: #f5f5f7 !important;
     }
-    /* Tablet: collapse book to single page (no left page, no spine) */
-    @media (max-width: 1100px) {
-      .deck { padding: 32px 20px; }
-      .book-frame { display: none; }
-      .slide {
-        left: 20px; right: 20px; top: 32px; bottom: 32px;
-        border-left: 1px solid rgba(255,255,255,0.08);
-        border-radius: 14px;
-        transform-origin: center center;
-      }
-    }
     @media (max-width: 768px) {
       .spline-bg { display: none; }
-      .topbar { left: 0; }
-      .bottom-sig { left: 0; }
-      .deck { width: 100vw; margin-left: 0; padding: 16px; perspective: none; }
-      .book-frame { display: none; }
-      .slide-counter { left: 50%; }
-      .nav-prev { left: 24px; }
+      .topbar { left: 0; flex-wrap: wrap; padding: 8px 12px; }
+      .topbar-logo { font-size: 1.1rem; }
+      .topbar-by { font-size: 0.65rem; }
+      .bottom-sig { left: 0; padding: 6px 10px; gap: 8px; font-size: 0.65rem; flex-wrap: wrap; }
+      .bottom-sig img { width: 22px; height: 22px; }
+      .deck { width: 100vw; margin-left: 0; padding: 12px; height: calc(100vh - 90px); }
+      .progress { right: 4px; gap: 4px; }
+      .slide-counter { left: 50%; bottom: 60px; }
+      .nav-prev { left: 12px; }
+      .nav-next { right: 18px; }
       .slide {
-        position: absolute; inset: 16px;
-        left: 16px; right: 16px; top: 16px; bottom: 16px;
-        transform: none !important;
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.12);
+        position: absolute; inset: 12px;
+        border-radius: 18px;
         background: rgba(10,10,15,0.55);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
-        transition: opacity 0.4s ease;
+        border: 1px solid rgba(255,255,255,0.12);
+        padding: 16px 12px;
       }
-      .slide.flipping-out { transform: none !important; }
-      .slide-inner {
-        padding: 28px 22px;
-        max-width: 1100px;
-        width: 100%;
-      }
+      .slide-inner { padding: 16px 8px; }
     }
 
     /* ===== TOPBAR ===== */
@@ -742,15 +671,6 @@
 
 <!-- SLIDES -->
 <div class="deck">
-
-  <!-- Static book frame: left page + spine -->
-  <div class="book-frame" aria-hidden="true">
-    <div class="book-page-static">
-      <div class="left-page-visual">Page</div>
-    </div>
-    <div class="book-spine-shadow"></div>
-    <div style="flex:1;"></div>
-  </div>
 
   <!-- Slide 1: Hero -->
   <div class="slide slide-hero active" data-i="0">
