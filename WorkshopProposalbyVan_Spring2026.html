@@ -27,6 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.88/build/spline-viewer.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -40,47 +41,25 @@
     }
     html { scroll-behavior: auto; }
     body {
-      font-family: var(--font-b); background: var(--white);
+      font-family: var(--font-b); background: #050507;
       color: var(--black); overflow: hidden; height: 100vh; width: 100vw;
       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    /* ===== SPLINE BACKGROUND ===== */
+    .spline-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    }
+    .spline-bg spline-viewer {
+      width: 100%; height: 100%; display: block;
+    }
+    .spline-bg::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(5,5,7,0.35) 0%, rgba(5,5,7,0.75) 100%);
+      pointer-events: none;
     }
     h1, h2, h3, h4 { font-family: var(--font-h); font-weight: 700; line-height: 1.05; letter-spacing: -0.045em; }
     h1 { font-weight: 800; }
     code { font-family: 'SF Mono', 'Menlo', monospace; font-size: 0.82em; background: var(--gray-3); padding: 3px 8px; border-radius: 6px; border: 1px solid var(--gray-2); }
-
-    /* ===== ROBOT WIDGET ===== */
-    .robot-widget {
-      position: fixed; bottom: 72px; right: 20px; z-index: 99;
-      width: 220px; height: 220px;
-      border-radius: 24px; overflow: hidden;
-      background: rgba(10,10,10,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 20px 60px -10px rgba(0,0,0,0.4), 0 8px 24px -8px rgba(37,99,235,0.25);
-      transition: transform 0.4s var(--spring), opacity 0.3s ease;
-    }
-    .robot-widget:hover { transform: translateY(-4px) scale(1.02); }
-    .robot-widget iframe { width: 100%; height: 100%; border: 0; display: block; }
-    .robot-widget .robot-label {
-      position: absolute; top: 10px; left: 12px; z-index: 2;
-      font-family: var(--font-h); font-weight: 600; font-size: 0.6rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
-      background: rgba(0,0,0,0.4); backdrop-filter: blur(8px);
-      padding: 4px 8px; border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.08);
-      pointer-events: none;
-    }
-    .robot-widget .robot-close {
-      position: absolute; top: 8px; right: 8px; z-index: 3;
-      width: 22px; height: 22px; border-radius: 50%;
-      background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, color 0.2s;
-    }
-    .robot-widget .robot-close:hover { background: rgba(0,0,0,0.8); color: white; }
-    .robot-widget.hidden { transform: translateY(20px) scale(0.9); opacity: 0; pointer-events: none; }
-    @media (max-width: 768px) { .robot-widget { display: none; } }
 
     /* ===== BOTTOM SIG ===== */
     .bottom-sig {
@@ -96,7 +75,8 @@
     .bottom-sig .sep { color: var(--gray-2); }
 
     /* ===== DECK ===== */
-    .deck { height: calc(100vh - 44px); width: 100vw; overflow: hidden; position: relative; margin-bottom: 44px; }
+    .deck { height: calc(100vh - 44px); width: 100vw; overflow: hidden; position: relative; margin-bottom: 44px; z-index: 1; }
+    .slide-hero, .slide { background: transparent !important; }
     .slide {
       position: absolute; inset: 0; display: flex; flex-direction: column;
       align-items: center; justify-content: center; padding: 56px 48px 52px;
@@ -105,7 +85,18 @@
       transform: scale(0.97);
     }
     .slide.active { opacity: 1; pointer-events: auto; z-index: 2; transform: scale(1); }
-    .slide-inner { max-width: 1100px; width: 100%; }
+    .slide-inner {
+      max-width: 1100px; width: 100%;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 28px;
+      padding: 48px 52px;
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.15) inset;
+    }
+    @media (max-width: 768px) {
+      .slide-inner { padding: 28px 22px; border-radius: 20px; background: rgba(255,255,255,0.92); }
+    }
 
     /* ===== TOPBAR ===== */
     .topbar {
@@ -298,6 +289,12 @@
   </style>
 </head>
 <body class="kid-mode">
+
+<!-- Spline 3D Robot Background -->
+<div class="spline-bg" aria-hidden="true">
+  <spline-viewer url="https://prod.spline.design/OZELuRQBuBqq55-x/scene.splinecode" loading-anim-type="spinner-small-light"></spline-viewer>
+</div>
+
 
 <!-- Top Bar -->
 <div class="topbar">
@@ -504,13 +501,6 @@
 
 <!-- Slide Counter -->
 <div class="slide-counter" id="counter">1 / 9</div>
-
-<!-- Floating Robot Widget -->
-<div class="robot-widget" id="robotWidget">
-  <span class="robot-label">Meet my AI</span>
-  <button class="robot-close" onclick="document.getElementById('robotWidget').classList.add('hidden')" aria-label="Hide robot">×</button>
-  <iframe src="https://my.spline.design/nexbotrobotcharacterconcept-WIeDXkITMHE8nILQNuv6vi0M/" loading="lazy" title="3D Robot"></iframe>
-</div>
 
 <!-- Fixed Bottom Signature -->
 <div class="bottom-sig">
