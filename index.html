@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>AI Second Brain Workshop - Vanchhit Khare</title>
   <script>
-    var PAGE_VERSION = '20260426h';
+    var PAGE_VERSION = '20260426i';
     if (localStorage.getItem('wsv') !== PAGE_VERSION) {
       localStorage.setItem('wsv', PAGE_VERSION);
       location.reload(true);
@@ -172,8 +172,13 @@
       border: none;
       padding: 24px 16px;
       color: #f5f5f7;
-      overflow-x: auto;
+      overflow-x: hidden;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+    .slide-inner h1 { font-size: clamp(1.6rem, 4vw, 3rem); }
+    .slide-inner h2 { font-size: clamp(1.3rem, 3vw, 2.2rem); }
+    .slide-inner h3 { font-size: clamp(1.05rem, 2.2vw, 1.4rem); }
     .slide-inner > * { max-width: 100%; }
     .slide-inner, .slide-inner h1, .slide-inner h2, .slide-inner h3, .slide-inner h4, .slide-inner p, .slide-inner li, .slide-inner strong {
       color: #f5f5f7 !important;
@@ -187,6 +192,17 @@
     .slide-inner a { color: #5eb0ff !important; }
     .slide-inner .chip {
       background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.2) !important; color: #f5f5f7 !important;
+    }
+    /* Tablet: collapse book to single page (no left page, no spine) */
+    @media (max-width: 1100px) {
+      .deck { padding: 32px 20px; }
+      .book-frame { display: none; }
+      .slide {
+        left: 20px; right: 20px; top: 32px; bottom: 32px;
+        border-left: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px;
+        transform-origin: center center;
+      }
     }
     @media (max-width: 768px) {
       .spline-bg { display: none; }
