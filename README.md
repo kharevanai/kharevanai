@@ -1,5 +1,9 @@
 <div align="center">
 
+<img src="./assets/robot.gif" alt="Welcome robot" width="600" />
+
+<br/>
+
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&pause=1000&color=7AA2F7&center=true&vCenter=true&width=600&lines=Hi%2C+I'm+Van+Khare+%F0%9F%91%8B;AI+engineer+%26+builder;Shipping+39%2B+projects+in+parallel;Always+automating+something" alt="Typing SVG" />
 
 </div>
