@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>AI Second Brain Workshop - Vanchhit Khare</title>
   <script>
-    var PAGE_VERSION = '20260426g';
+    var PAGE_VERSION = '20260426h';
     if (localStorage.getItem('wsv') !== PAGE_VERSION) {
       localStorage.setItem('wsv', PAGE_VERSION);
       location.reload(true);
@@ -97,32 +97,80 @@
     .bottom-sig a { color: #5eb0ff; font-weight: 600; }
     .bottom-sig .sep { color: rgba(255,255,255,0.2); }
 
-    /* ===== DECK ===== */
-    .deck { height: calc(100vh - 44px); width: 60vw; margin-left: 40vw; overflow: hidden; position: relative; margin-bottom: 44px; z-index: 1; }
-    .book-bg {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; z-index: 0; pointer-events: none;
-      opacity: 0.55; mix-blend-mode: screen;
+    /* ===== DECK (BOOK) ===== */
+    .deck { height: calc(100vh - 44px); width: 60vw; margin-left: 40vw; overflow: hidden; position: relative; margin-bottom: 44px; z-index: 1; perspective: 2400px; perspective-origin: center center; padding: 64px 28px 56px; }
+    /* The static book frame: spine + left page (always visible) */
+    .book-frame {
+      position: absolute; inset: 64px 28px 56px;
+      display: flex; pointer-events: none; z-index: 0;
+      border-radius: 14px;
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
     }
-    .book-bg::after {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, transparent 30%, rgba(10,10,15,0.6) 100%);
+    .book-page-static {
+      flex: 1; height: 100%;
+      background: linear-gradient(135deg, rgba(245,241,232,0.04) 0%, rgba(245,241,232,0.08) 100%);
+      backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px 0 0 14px;
+      border-right: none;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px;
     }
-    @media (max-width: 768px) { .book-bg { display: none; } }
+    .book-page-static::after {
+      content: ""; position: absolute; top: 0; right: 0; width: 18px; height: 100%;
+      background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.18) 50%, transparent 100%);
+      pointer-events: none;
+    }
+    .book-spine-shadow {
+      width: 0; height: 100%; position: relative;
+    }
+    .book-spine-shadow::before {
+      content: ""; position: absolute; top: 0; left: -10px; width: 20px; height: 100%;
+      background: linear-gradient(to right, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%);
+      z-index: 5; pointer-events: none;
+    }
+    .book-spine-shadow::after {
+      content: ""; position: absolute; top: 0; right: -10px; width: 20px; height: 100%;
+      background: linear-gradient(to left, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%);
+      z-index: 5; pointer-events: none;
+    }
+    /* Left page placeholder visual (replaced per slide later) */
+    .left-page-visual {
+      width: 80%; max-width: 320px; aspect-ratio: 1;
+      border-radius: 16px;
+      background: radial-gradient(circle at 30% 30%, rgba(10,132,255,0.18), rgba(10,132,255,0.04) 60%, transparent 80%);
+      border: 1px solid rgba(10,132,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-h); font-size: 0.78rem; letter-spacing: 0.18em;
+      color: rgba(245,245,247,0.5); text-transform: uppercase;
+    }
+
     .slide-hero, .slide { background: transparent !important; }
+    /* Slide = right page of the book */
     .slide {
-      position: absolute; inset: 0; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; padding: 56px 48px 52px;
+      position: absolute; top: 64px; bottom: 56px; left: calc(50% + 14px); right: 28px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 36px 32px;
       opacity: 0; pointer-events: none; overflow-y: auto;
-      transition: opacity 0.45s ease, transform 0.5s var(--spring);
-      transform: scale(0.97);
+      background: linear-gradient(135deg, rgba(245,241,232,0.04) 0%, rgba(245,241,232,0.08) 100%);
+      backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-left: none;
+      border-radius: 0 14px 14px 0;
+      transform-origin: left center;
+      transform: rotateY(-180deg);
+      transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.4s ease 0.1s;
+      backface-visibility: hidden;
+      box-shadow: inset 12px 0 24px -12px rgba(0,0,0,0.35);
     }
-    .slide.active { opacity: 1; pointer-events: auto; z-index: 2; transform: scale(1); }
+    .slide.active { opacity: 1; pointer-events: auto; z-index: 3; transform: rotateY(0deg); }
+    .slide.flipping-out { z-index: 2; transform: rotateY(-180deg); opacity: 0; }
     .slide-inner {
       max-width: 100%; width: 100%;
       background: transparent;
       border: none;
-      padding: 80px 48px 60px;
+      padding: 24px 16px;
       color: #f5f5f7;
       overflow-x: auto;
     }
@@ -144,16 +192,24 @@
       .spline-bg { display: none; }
       .topbar { left: 0; }
       .bottom-sig { left: 0; }
-      .deck { width: 100vw; margin-left: 0; }
+      .deck { width: 100vw; margin-left: 0; padding: 16px; perspective: none; }
+      .book-frame { display: none; }
       .slide-counter { left: 50%; }
       .nav-prev { left: 24px; }
-      .slide-inner {
-        padding: 28px 22px;
+      .slide {
+        position: absolute; inset: 16px;
+        left: 16px; right: 16px; top: 16px; bottom: 16px;
+        transform: none !important;
         border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.12);
         background: rgba(10,10,15,0.55);
         backdrop-filter: blur(14px);
         -webkit-backdrop-filter: blur(14px);
-        border: 1px solid rgba(255,255,255,0.12);
+        transition: opacity 0.4s ease;
+      }
+      .slide.flipping-out { transform: none !important; }
+      .slide-inner {
+        padding: 28px 22px;
         max-width: 1100px;
         width: 100%;
       }
@@ -671,9 +727,14 @@
 <!-- SLIDES -->
 <div class="deck">
 
-  <video class="book-bg" id="bookBg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-    <source src="./assets/book-flip.mp4" type="video/mp4">
-  </video>
+  <!-- Static book frame: left page + spine -->
+  <div class="book-frame" aria-hidden="true">
+    <div class="book-page-static">
+      <div class="left-page-visual">Page</div>
+    </div>
+    <div class="book-spine-shadow"></div>
+    <div style="flex:1;"></div>
+  </div>
 
   <!-- Slide 1: Hero -->
   <div class="slide slide-hero active" data-i="0">
@@ -983,8 +1044,6 @@
     slides[cur].classList.add('active');
     document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
     document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
-    var bg = document.getElementById('bookBg');
-    if (bg) { try { bg.currentTime = 0; bg.play(); } catch(e){} }
   }
 
   function go(dir) { goTo(cur + dir); }
